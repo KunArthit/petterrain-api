@@ -10,7 +10,6 @@ import wpBlogCategoryController from "./controllers/BlogCategoryController";
 import wpBlogPostMediaController from "./controllers/BlogPostMediaController";
 import wpProductImageController from "./controllers/ProductImageController";
 import wpChatbotResponseController from "./controllers/ChatbotResponseController";
-import wpPdpaConsentController from "./controllers/PdpaConsentController";
 import wpAdminPermissionsController from "./controllers/AdminPermissionsController";
 import wpCreditTermsController from "./controllers/CreditTermController";
 import wpOrderController from "./controllers/OrderController";
@@ -25,10 +24,7 @@ import wpOrderItemController from "./controllers/OrderItemController";
 import wpSolutionCategoryController from "./controllers/SolutionCategoryController";
 import wpProjectExampleController from "./controllers/ProjectExampleController";
 import wpSolutionContentController from "./controllers/SolutionContentController";
-import wpQuotationItemController from "./controllers/QuotationItemController";
 import wpProjectMediaController from "./controllers/ProjectMediaController";
-import wpTicketResponseController from "./controllers/TicketResponseController";
-import wpServiceTicketController from "./controllers/ServiceTicketController";
 import wpCompanyContactController from "./controllers/CompanyContactController";
 import { fileController } from "./controllers/fileController";
 import productCategoryController from "./controllers/ProductCatagoriesController";
@@ -55,7 +51,6 @@ export const apiRouter = <T extends string>(config: { prefix: T }) => {
     wpBlogPostMediaController,
     wpProductImageController,
     wpChatbotResponseController,
-    wpPdpaConsentController,
     wpAdminPermissionsController,
     wpCreditTermsController,
     wpOrderController,
@@ -70,10 +65,7 @@ export const apiRouter = <T extends string>(config: { prefix: T }) => {
     wpSolutionCategoryController,
     wpProjectExampleController,
     wpSolutionContentController,
-    wpQuotationItemController,
     wpProjectMediaController,
-    wpTicketResponseController,
-    wpServiceTicketController,
     wpCompanyContactController,
     cartWishlistController,
     fileController,

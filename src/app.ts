@@ -1,86 +1,3 @@
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
-// import { Elysia, t } from "elysia";
-// import { swagger } from "@elysiajs/swagger";
-// import { apiRouter } from "./api";
-// import { cors } from "@elysiajs/cors";
-// import { staticPlugin } from "@elysiajs/static";
-// import { join } from "path";
-// import { mkdirSync, existsSync } from "fs";
-// import { PrismaClient } from "@prisma/client";
-// import type { ServerWebSocket } from "bun";
-
-// const prisma = new PrismaClient();
-// const clients: Map<string, Set<ServerWebSocket<any>>> = new Map();
-
-// // Define the directory for your images
-// const UPLOADS_DIR = join(process.cwd(), "images");
-
-// // Ensure the uploads directory exists
-// if (!existsSync(UPLOADS_DIR)) {
-//   mkdirSync(UPLOADS_DIR, { recursive: true });
-// }
-
-// export const app = new Elysia()
-
-//   // Log all incoming requests for debugging
-//   .onRequest(({ request }) => {
-//     console.log(
-//       `Incoming Request: ${request.method} ${new URL(request.url).pathname}`
-//     );
-//   })
-
-//   // Serve static files from the 'images' directory
-//   .use(
-//     staticPlugin({
-//       prefix: "/images",
-//       assets: UPLOADS_DIR,
-//       alwaysStatic: false,
-//       headers: {
-//         "Cache-Control": "public, max-age=0",
-//       },
-//     })
-//   )
-//   // Serve static files from the 'videos' directory
-//   .use(
-//     staticPlugin({
-//       prefix: "/videos",
-//       assets: join(process.cwd(), "videos"),
-//       alwaysStatic: false,
-//       headers: {
-//         "Cache-Control": "public, max-age=0",
-//       },
-//     })
-//   )
-
-//   .use(cors())
-//   // Root route
-//   .get("/", () => ({ message: "Welcome to Elysia API" }))
-
-//   // Health check route
-//   .get("/health", () => ({ status: "ok" }))
-
-//   // API routes
-//   .use(apiRouter({ prefix: "/api" }))
-
-//   // Swagger documentation
-//   .use(
-//     swagger({
-//       path: "/docs",
-//       documentation: {
-//         info: {
-//           title: "Elysia API Documentation",
-//           version: "1.0.0",
-//         },
-//         tags: [
-//           { name: "Users", description: "User Management Endpoints" },
-//           { name: "Products", description: "Product Management Endpoints" },
-//         ],
-//       },
-//     })
-//   );
-
-
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 import { Elysia } from "elysia";
@@ -99,9 +16,9 @@ const clients: Map<string, Set<ServerWebSocket<any>>> = new Map();
 const UPLOADS_DIR = "/app/images";
 
 // Ensure uploads directory exists
-if (!existsSync(UPLOADS_DIR)) {
-  mkdirSync(UPLOADS_DIR, { recursive: true });
-}
+// if (!existsSync(UPLOADS_DIR)) {
+//   mkdirSync(UPLOADS_DIR, { recursive: true });
+// }
 
 export const app = new Elysia()
   // Log all incoming requests
