@@ -1,0 +1,81 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x", "linux-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum chat_messages_sender_type {
+  user
+  admin
+  bot
+}
+
+enum chat_sessions_session_type {
+  customer
+  internal
+}
+
+enum chat_sessions_status {
+  active
+  closed
+}
+
+model users {
+  user_id    Int       @id @default(autoincrement())
+  username   String    @unique
+  email      String    @unique
+  password   String
+  first_name String?
+  last_name  String?
+  phone      String?
+  is_active  Boolean?  @default(true)
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  chat_sessions_created chat_sessions[] @relation("CreatedSessions")
+  messages_sent         chat_messages[] @relation("MessagesSent")
+  messages_received     chat_messages[] @relation("MessagesReceived")
+}
+
+model chat_sessions {
+  session_id   Int                        @id @default(autoincrement())
+  user_id      Int?
+  session_type chat_sessions_session_type
+  status       chat_sessions_status?      @default(active)
+  created_at   DateTime?                  @default(now())
+  closed_at    DateTime?                  @default(now())
+
+  created_by    users?          @relation("CreatedSessions", fields: [user_id], references: [user_id])
+  chat_messages chat_messages[]
+
+  @@index([user_id])
+  @@index([session_type])
+  @@index([status])
+  @@map("chat_sessions")
+}
+
+model chat_messages {
+  message_id       Int                       @id @default(autoincrement())
+  session_id       Int
+  sender_type      chat_messages_sender_type
+  sender_id        Int?
+  receiver_user_id Int?
+  message_text     String                    @db.Text
+  is_read          Boolean?                  @default(false)
+  created_at       DateTime?                 @default(now())
+
+  chat_session chat_sessions @relation(fields: [session_id], references: [session_id], onDelete: Cascade)
+  sender       users?        @relation("MessagesSent", fields: [sender_id], references: [user_id])
+  receiver     users?        @relation("MessagesReceived", fields: [receiver_user_id], references: [user_id])
+
+  @@index([session_id])
+  @@index([sender_id])
+  @@index([receiver_user_id])
+  @@index([is_read])
+  @@index([created_at])
+  @@map("chat_messages")
+}

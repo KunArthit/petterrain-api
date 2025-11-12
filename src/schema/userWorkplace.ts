@@ -1,0 +1,11 @@
+import { z } from 'zod'
+
+export const userWorkplaceSchema = z.object({
+  user_id: z.number().int(),
+  address: z.string().min(1),
+  province: z.string().min(1),
+  district: z.string().min(1),
+  sub_district: z.string().min(1),
+  postal_code: z.string().min(1),
+  phone: z.string().min(9).max(15)
+})

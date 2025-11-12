@@ -1,0 +1,72 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"vcs": {
+		"enabled": false,
+		"clientKind": "git",
+		"useIgnoreFile": false,
+		"defaultBranch": "master"
+	},
+	"files": {
+		"ignoreUnknown": false,
+		"include": ["*.ts", "*.tsx", "*.css", "*.json"],
+		"ignore": ["node_modules", "dist/**", ".next", "public", ".turbo"]
+	},
+	"formatter": {
+		"enabled": true,
+		"formatWithErrors": false,
+		"attributePosition": "auto",
+		"indentStyle": "tab",
+		"indentWidth": 2,
+		"lineWidth": 80,
+		"lineEnding": "lf"
+	},
+	"organizeImports": {
+		"enabled": true
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"correctness": {
+				"noUnusedVariables": {
+					"fix": "none",
+					"level": "warn"
+				},
+				"noUnusedImports": {
+					"fix": "none",
+					"level": "warn"
+				},
+				"noInvalidUseBeforeDeclaration": "error"
+			},
+			"style": {
+				"useConst": {
+					"level": "warn",
+					"fix": "none"
+				},
+				"useExportType": "warn",
+				"useImportType": "warn",
+				"useThrowOnlyError": "error"
+			},
+			"complexity": {
+				"noBannedTypes": "error",
+				"noUselessTypeConstraint": "error",
+				"noUselessEmptyExport": "warn",
+				"useOptionalChain": "warn"
+			},
+			"suspicious": {
+				"noUnsafeDeclarationMerging": "error",
+				"noEmptyInterface": "warn"
+				// "useNamespaceKeyword": "warn"
+			},
+			"performance": {
+				"noAccumulatingSpread": "error"
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "double",
+			"trailingCommas": "none"
+		}
+	}
+}

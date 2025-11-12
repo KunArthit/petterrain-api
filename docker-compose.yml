@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    restart: always
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-container
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    networks:
+      - default
+
+volumes:
+  mysql_data:

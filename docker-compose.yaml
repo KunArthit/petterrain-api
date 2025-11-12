@@ -1,0 +1,65 @@
+services:
+  booking-backend:
+    container_name: booking-api
+    restart: always
+    networks:
+      - booking-network
+    build:
+      context: .
+      args:
+        - NODE_ENV=production
+    platform: linux/amd64 # Patch for M1 Mac
+    env_file:
+      - .env
+    environment:
+      - HOSTNAME=0.0.0.0
+      - CORS_ORIGINS=${CORS_ORIGINS}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_PORT=${MYSQL_PORT}
+      - MYSQL_DB=${MYSQL_DB}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - 3000:3000
+    depends_on:
+      - booking-db
+
+  booking-db:
+    container_name: booking-db
+    restart: always
+    networks:
+      - booking-network
+    image: mysql:8.0
+    env_file:
+      - .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DB}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backup.sql:/docker-entrypoint-initdb.d/backup.sql
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  frontend-frontend:
+    container_name: booking-web
+    restart: always
+    image: staciax/booking-web:0.0.4
+    ports:
+      - 3001:3000
+    depends_on:
+      - booking-backend
+
+networks:
+  booking-network:
+    driver: bridge
+
+volumes:
+  mysql_data:

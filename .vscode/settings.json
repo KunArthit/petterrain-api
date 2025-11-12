@@ -1,0 +1,29 @@
+{
+	"workbench.editor.customLabels.patterns": {
+		"**/src/**/{models,controllers,classes}/**/*.ts": "${dirname} - ${filename}.ts"
+	},
+
+	// Editor settings
+	"editor.formatOnSave": true,
+
+	// BiomeJS
+	"biome.lspBin": "./node_modules/@biomejs/biome/bin/biome",
+	"editor.codeActionsOnSave": {
+		"quickfix.biome": "explicit",
+		"source.organizeImports.biome": "explicit"
+	},
+
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.codeActionsOnSave": {
+			"quickfix.biome": "explicit",
+			"source.organizeImports.biome": "explicit"
+		}
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
+}
